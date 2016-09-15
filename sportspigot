@@ -153,7 +153,7 @@ case "$1" in
     ;;
     "setup")
         if [[ -f "$RCPATH" ]] ; then
-            NAME="sport"
+            NAME="sportspigot"
             if [[ ! -z "${2+x}" ]] ; then
                 NAME="$2"
             fi
@@ -186,11 +186,11 @@ case "$1" in
         echo "                      | the changes have been made to finish and rebuild patches. Can be called from anywhere."
         echo ""
         echo "  * setup             | Add an alias to $RCPATH to allow full functionality of this script. Run as:"
-        echo "                      |     . ./paper setup"
-        echo "                      | After you run this command you'll be able to just run 'paper' from anywhere."
-        echo "                      | The default name for the resulting alias is 'paper', you can give an argument to override"
+        echo "                      |     . ./sportspigot setup"
+        echo "                      | After you run this command you'll be able to just run 'sportspigot' from anywhere."
+        echo "                      | The default name for the resulting alias is 'sportspigot', you can give an argument to override"
         echo "                      | this default, such as:"
-        echo "                      |     . ./paper setup example"
+        echo "                      |     . ./sportspigot setup example"
         echo "                      | Which will allow you to run 'example' instead."
     ;;
 esac
