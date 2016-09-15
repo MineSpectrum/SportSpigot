@@ -3,11 +3,11 @@ cd $(dirname $SOURCE)/../
 basedir=$(pwd -P)
 
 ## CHANGE THESE TO YOUR REPOS
-API_REPO="git@bitbucket.org:domnian/PaperDragon-API"
-SERVER_REPO="git@bitbucket.org:domnian/PaperDragon-Server"
-PAPERAPI_REPO="git@bitbucket.org:domnian/Paper-API"
-PAPERSERVER_REPO="git@bitbucket.org:domnian/Paper-Server"
-MCDEV_REPO="git@bitbucket.org:domnian/mc-dev"
+API_REPO="git@bitbucket.org:BungeeTheCookie/sportspigot-api.git"
+SERVER_REPO="git@bitbucket.org:BungeeTheCookie/sportspigot-server.git"
+PAPERAPI_REPO="git@bitbucket.org:BungeeTheCookie/paper-api.git"
+PAPERSERVER_REPO="git@bitbucket.org:BungeeTheCookie/paper-server.git"
+MCDEV_REPO="git@bitbucket.org:BungeeTheCookie/mc-dev.git"
 
 function cleanupPatches {
 	cd "$1"
@@ -31,9 +31,9 @@ function pushRepo {
 	echo "Pushing - $1 ($3) to $2"
 	(
 		cd "$1"
-		git remote rm pd-push > /dev/null 2>&1
-		git remote add pd-push $2 >/dev/null 2>&1
-		git push pd-push $3 -f
+		git remote rm sport-push > /dev/null 2>&1
+		git remote add sport-push $2 >/dev/null 2>&1
+		git push sport-push $3 -f
 	)
 }
 
