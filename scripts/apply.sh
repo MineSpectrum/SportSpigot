@@ -24,10 +24,7 @@ function applyPatch {
 
 	cd "$basedir"
 	if [ ! -d  "$basedir/$target" ]; then
-		mkdir "$basedir/$target"
-		cd "$basedir/$target"
-		git init
-		cd "$basedir"
+		git clone "$what" "$target"
 	fi
 	cd "$basedir/$target"
 	echo "Resetting $target to $what_name..."
@@ -48,5 +45,6 @@ function applyPatch {
 		echo "  Patches applied cleanly to $target"
 	fi
 }
-applyPatch Paper/Paper-API ${FORK_NAME}-API HEAD api
-applyPatch Paper/Paper-Server ${FORK_NAME}-Server HEAD server
+
+applyPatch Paper/Paper-API SportSpigot-API HEAD api
+applyPatch Paper/Paper-Server SportSpigot-Server HEAD server

@@ -1,15 +1,13 @@
 #!/bin/bash
-sourceBase=$(dirname $SOURCE)/../
-cd ${basedir:-$sourceBase}
-
+cd $(dirname $SOURCE)/../
 basedir=$(pwd -P)
 
-FORK_NAME="SportSpigot"
-API_REPO=""
-SERVER_REPO=""
-PAPER_API_REPO=""
-PAPER_SERVER_REPO=""
-MCDEV_REPO=""
+## CHANGE THESE TO YOUR REPOS
+API_REPO="git@bitbucket.org:domnian/PaperDragon-API"
+SERVER_REPO="git@bitbucket.org:domnian/PaperDragon-Server"
+PAPERAPI_REPO="git@bitbucket.org:domnian/Paper-API"
+PAPERSERVER_REPO="git@bitbucket.org:domnian/Paper-Server"
+MCDEV_REPO="git@bitbucket.org:domnian/mc-dev"
 
 function cleanupPatches {
 	cd "$1"
@@ -19,7 +17,7 @@ function cleanupPatches {
 
 		testver=$(echo "$diffs" | tail -n 2 | grep -ve "^$" | tail -n 1 | grep "$gitver")
 		if [ "x$testver" != "x" ]; then
-			diffs=$(echo "$diffs" | tail -n +3)
+			diffs=$(echo "$diffs" | head -n -2)
 		fi
 
 		if [ "x$diffs" == "x" ] ; then
@@ -28,20 +26,21 @@ function cleanupPatches {
 		fi
 	done
 }
+
 function pushRepo {
-	if [ $(git config minecraft.push-${FORK_NAME}) == "1" ]; then
 	echo "Pushing - $1 ($3) to $2"
 	(
 		cd "$1"
-		git remote rm sportspigot-push > /dev/null 2>&1
-		git remote add sportspigot-push $2 >/dev/null 2>&1
-		git push sportspigot-push $3 -f
+		git remote rm pd-push > /dev/null 2>&1
+		git remote add pd-push $2 >/dev/null 2>&1
+		git push pd-push $3 -f
 	)
-	fi
 }
+
 function basedir {
 	cd "$basedir"
 }
+
 function gethead {
 	(
 		cd "$1"

@@ -35,14 +35,16 @@ function import {
 (
 	cd Paper/Paper-Server/
 	lastlog=$(git log -1 --oneline)
-	if [[ "$lastlog" = *"SportSpigot-Extra mc-dev Imports"* ]]; then
+	if [[ "$lastlog" = *"Sport-Extra mc-dev Imports"* ]]; then
 		git reset --hard HEAD^
 	fi
 )
+
+# import PacketPlayOutMapChunk - this is where they go
 
 (
 	cd Paper/Paper-Server/
 	rm -rf nms-patches
 	git add src -A
-	echo -e "SportSpigot-Extra mc-dev Imports\n\n$MODLOG" | git commit src -F -
+	echo -e "Sport-Extra mc-dev Imports\n\n$MODLOG" | git commit src -F -
 )

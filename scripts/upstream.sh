@@ -9,31 +9,27 @@ done
 . $(dirname $SOURCE)/init.sh
 
 if [[ "$1" == up* ]]; then
-	(
-		cd "$basedir/Paper/"
-		git fetch && git reset --hard origin/master
-		cd ../
-		git add Paper
-	)
+    (
+        cd "$basedir/Paper/"
+        git fetch && git reset --hard origin/master
+        cd ../
+        git add Paper
+    )
 fi
 
 paperVer=$(gethead Paper)
-cd "$basedir/Paper/"
+cd "$basedir/Paper"
 
 ./paper patch
-
-cd "Paper-Server"
-mcVer=$(mvn -o org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=minecraft_version | sed -n -e '/^\[.*\]/ !{ /^[0-9]/ { p; q } }')
 
 basedir
 . scripts/importmcdev.sh
 scripts/generatesources.sh
-minecraftversion=$(cat $basedir/Paper/work/BuildData/info.json | grep minecraftVersion | cut -d '"' -f 4)
 
 cd Paper/
 
 version=$(echo -e "Paper: $paperVer\nmc-dev:$importedmcdev")
-tag="${minecraftversion}-${mcVer}-$(echo -e $version | shasum | awk '{print $1}')"
+tag="upstream-$(echo -e $version | shasum | awk '{print $1}')"
 
 function tag {
 (
@@ -56,6 +52,8 @@ tag Paper-API $forcetag
 tag Paper-Server $forcetag
 
 echo "$tag" > $basedir/current-paper
-pushRepo Paper-API $PAPER_API_REPO $tag
-pushRepo Paper-Server $PAPER_SERVER_REPO $tag
 
+if [[ "$2" == "--push" ]]; then
+	pushRepo Paper-API $PAPERAPI_REPO $tag
+	pushRepo Paper-Server $PAPERSERVER_REPO $tag
+fi
